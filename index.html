@@ -2917,7 +2917,12 @@ function startCat(c){
   renderCats(); nextItem();
 }
 
+function stopAll(){
+  try{ player.pause(); }catch(e){}
+  if('speechSynthesis' in window) speechSynthesis.cancel();
+}
 function nextItem(){
+  stopAll();
   var it=curItem();
   sel={rf:null,mc:null}; t0=null;
   $('t1-roundTxt').textContent=CATN[curCat]+' · 第 '+(idx+1)+' / '+items.length+' 题';
@@ -3023,6 +3028,7 @@ function updateLive(){
   $('t1-stats').innerHTML='本类进度：R/F <b>'+rf+'/'+Math.max(n,0)+'</b> · 选择 <b>'+mc+'/'+Math.max(n,0)+'</b> · 平均反应 <b>'+(avg==null?'--':avg.toFixed(1)+' 秒')+'</b>';
 }
 function finishCat(){
+  stopAll();
   var n=results.length;
   var rf=results.filter(function(r){return r.rfOk;}).length;
   var mc=results.filter(function(r){return r.mcOk;}).length;
@@ -3519,7 +3525,12 @@ function renderDays(){
     box.appendChild(b);
   });
 }
+function stopAll(){
+  try{ player.pause(); }catch(e){}
+  if('speechSynthesis' in window) speechSynthesis.cancel();
+}
 function loadItem(){
+  stopAll();
   var list=DB.filter(function(x){return x.day===DAY;});
   var nav=document.getElementById('t2-itemNav'); nav.innerHTML='';
   list.forEach(function(x,xi){
