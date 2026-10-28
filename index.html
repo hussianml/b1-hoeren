@@ -3910,9 +3910,9 @@ function startItem(){
 }
 function renderStmts(){
   $('t3-stmts').innerHTML=item.statements.map(function(s,i){
-    return '<div class="stmt" id="stmt'+i+'"><div class="stext"><span class="snum">'+(i+1)+'.</span>'+s.t+'</div>'+
+    return '<div class="stmt" id="t3stmt'+i+'"><div class="stext"><span class="snum">'+(i+1)+'.</span>'+s.t+'</div>'+
       '<div class="rfrow"><button class="rf" data-i="'+i+'" data-v="1">Richtig</button><button class="rf" data-i="'+i+'" data-v="0">Falsch</button></div>'+
-      '<div class="ansMark" id="mark'+i+'"></div></div>';
+      '<div class="ansMark" id="t3mark'+i+'"></div></div>';
   }).join('');
   Array.prototype.forEach.call($('t3-stmts').querySelectorAll('.rf'),function(b){
     b.onclick=function(){
@@ -3977,8 +3977,8 @@ $('t3-confirm').onclick=function(){
   var score=0;
   item.statements.forEach(function(s,i){
     var right=(picks[i]===s.ok); if(right) score++;
-    var box=$('stmt'+i); box.classList.add(right?'right':'wrong');
-    var mk=$('mark'+i); mk.style.display='block';
+    var box=$('t3stmt'+i); box.classList.add(right?'right':'wrong');
+    var mk=$('t3mark'+i); mk.style.display='block';
     mk.innerHTML=right?'<span class="ok">✓ 正确</span>':'<span class="bad">✗ 应为 '+(s.ok?'Richtig':'Falsch')+'，你答 '+(picks[i]?'Richtig':'Falsch')+'</span>';
   });
   Array.prototype.forEach.call($('t3-stmts').querySelectorAll('.rf'),function(b){ b.disabled=true; });
@@ -4585,7 +4585,7 @@ function renderStmts(){
     var btns=item.speakers.map(function(sp){
       return '<button class="who" data-i="'+i+'" data-v="'+sp.key+'">'+sp.name+'（'+sp.role+'）</button>';
     }).join('');
-    return '<div class="stmt" id="stmt'+i+'"><div class="stext"><span class="snum">'+(23+i)+'.</span>'+s.t+'</div><div class="whoRow">'+btns+'</div><div class="ansMark" id="mark'+i+'"></div></div>';
+    return '<div class="stmt" id="t4stmt'+i+'"><div class="stext"><span class="snum">'+(23+i)+'.</span>'+s.t+'</div><div class="whoRow">'+btns+'</div><div class="ansMark" id="t4mark'+i+'"></div></div>';
   }).join('');
   Array.prototype.forEach.call($('t4-stmts').querySelectorAll('.who'),function(b){
     b.onclick=function(){
@@ -4652,8 +4652,8 @@ $('t4-confirm').onclick=function(){
   var score=0;
   item.statements.forEach(function(s,i){
     var right=(picks[i]===s.who); if(right) score++;
-    var box=$('stmt'+i); box.classList.add(right?'right':'wrong');
-    var mk=$('mark'+i); mk.style.display='block';
+    var box=$('t4stmt'+i); box.classList.add(right?'right':'wrong');
+    var mk=$('t4mark'+i); mk.style.display='block';
     mk.innerHTML=right?'<span class="ok">✓ 正确</span>':'<span class="bad">✗ 应为 '+spName(s.who)+'，你选 '+spName(picks[i])+'</span>';
   });
   Array.prototype.forEach.call($('t4-stmts').querySelectorAll('.who'),function(b){ b.disabled=true; });
